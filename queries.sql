@@ -121,7 +121,7 @@ FROM departments
 INNER JOIN dept_manager
 ON departments.dept_no = dept_manager.dept_no;
 
--- joining retirement_info and dept_emp to see if someone is currently employed
+-- Left Join - joining retirement_info and dept_emp to see if someone is currently employed
 SELECT retirement_info.emp_no,
     retirement_info.first_name,
 	retirement_info.last_name,
@@ -129,5 +129,36 @@ SELECT retirement_info.emp_no,
 FROM retirement_info
 LEFT JOIN dept_employee
 ON retirement_info.emp_no = dept_employee.emp_no;
+
+-- using aliases to make joins easier to read (same join as above)
+-- Left Join - joining retirement_info and dept_emp to see if someone is currently employed
+SELECT ri.emp_no,
+    ri.first_name,
+	ri.last_name,
+    de.to_date
+FROM retirement_info as ri
+LEFT JOIN dept_employee as de
+ON ri.emp_no = de.emp_no;
+
+--a new table containing only the current employees who are eligible for retirement will be returned
+SELECT ri.emp_no,
+    ri.first_name,
+	ri.last_name,
+    de.to_date
+INTO current_emp
+FROM retirement_info as ri
+LEFT JOIN dept_employee as de
+ON ri.emp_no = de.emp_no
+WHERE de.to_date = ('9999-01-01');
+
+-- Employee count by department number
+SELECT COUNT(ce.emp_no), de.dept_no
+INTO employee_count_by_dept
+FROM current_emp as ce
+LEFT JOIN dept_employee as de
+ON ce.emp_no = de.emp_no
+GROUP BY de.dept_no
+ORDER BY de.dept_no;
+
 
 
