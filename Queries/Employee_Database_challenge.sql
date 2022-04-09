@@ -33,6 +33,28 @@ ORDER BY count DESC;
 
 SELECT * FROM retiring_titles;
 
+-- Deliverable 2
+-- Ceate a mentorship-eligibility table that holds the current employees 
+-- who were born between January 1, 1965 and December 31, 1965
+
+SELECT DISTINCT ON (e.emp_no) e.emp_no,
+	e.first_name,
+	e.last_name,
+	e.birth_date,
+	de.from_date,
+	de.to_date,
+	t.title
+INTO mentorship_eligibilty
+FROM employees as e
+INNER JOIN dept_employee as de
+ON (e.emp_no = de.emp_no)
+INNER JOIN titles as t
+ON (e.emp_no = t.emp_no)
+WHERE (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
+AND (de.to_date = '9999-01-01')
+ORDER BY emp_no;
+
+SELECT * FROM mentorship_eligibilty;
 
 	   
 	   
