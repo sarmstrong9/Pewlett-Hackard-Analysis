@@ -26,12 +26,12 @@ ORDER BY emp_no, to_date DESC;
 SELECT * FROM unique_titles;
 
 SELECT COUNT (ut.title), ut.title
-INTO retirement_titles_count
+INTO retiring_titles
 FROM unique_titles as ut
 GROUP BY (ut.title)
 ORDER BY count DESC;
 
-SELECT * FROM retirement_titles_count;
+SELECT * FROM retiring_titles;
 
 
 	   
