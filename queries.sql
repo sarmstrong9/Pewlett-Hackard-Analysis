@@ -229,3 +229,18 @@ INNER JOIN dept_employee as de
 ON (ce.emp_no = de.emp_no)
 INNER JOIN departments as d
 ON (de.dept_no = d.dept_no);
+
+--retirement_info table, only tailored for the Sales team
+SELECT * FROM dept_info;
+
+SELECT ri.emp_no,
+	ri.first_name,
+	ri.last_name,
+	di.dept_name
+INTO retirement_sales
+FROM retirement_info as ri
+LEFT JOIN dept_info as di
+ON (ri.emp_no = di.emp_no)
+WHERE (di.dept_name = 'Sales');
+
+
