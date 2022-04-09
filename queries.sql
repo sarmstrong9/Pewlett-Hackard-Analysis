@@ -244,3 +244,20 @@ ON (ri.emp_no = di.emp_no)
 WHERE (di.dept_name = 'Sales');
 
 
+--retirement_info tailored for the Sales and Development teams
+
+SELECT ri.emp_no,
+	ri.first_name,
+	ri.last_name,
+	di.dept_name
+INTO retirement_sales_development
+FROM retirement_info as ri
+LEFT JOIN dept_info as di
+ON (ri.emp_no = di.emp_no)
+WHERE di.dept_name IN ('Sales', 'Development');
+
+SELECT * FROM retirement_sales_development;
+
+
+
+
